@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Users = require('../models/Users');
+const UsersController = require('../controller/UsersController');
 
 // middleware that is specific to this router
 // router.use( (req, res, next) => {
@@ -9,20 +9,10 @@ const Users = require('../models/Users');
 //   next();
 // });
 
-// CRUD Usuario
-
 // CREATE
-router.post('/api/v1/users', (req, res) => {
-  Users.create(req.body)
-    .then(user => res.status(201).send(user))
-    .catch(err => res.status(400).send({ message: 'Error creating user', err }));
-});
+router.post('/api/v1/users', UsersController.create);
 
 // GET (ALL)
-router.get('/api/v1/users', (req, res) => {
-  Users.find()
-    .then(users => res.status(200).send(users))
-    .catch(err => res.status(404).send({ message: 'Users not found', err }));
-});
+router.get('/api/v1/users', UsersController.find);
 
 module.exports = router;
