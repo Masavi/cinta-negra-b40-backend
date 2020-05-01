@@ -8,7 +8,7 @@ server.use(express.json());
 // Endpoints
 server.get('/', (req, res) => res.send('Hello World!'));
 
-server.use(require('../router/UsersRoutes'));
+server.use(require('../router'));
 
 // exportar server para poder requerirlo desde otros archivos
 module.exports = { server, PORT };
