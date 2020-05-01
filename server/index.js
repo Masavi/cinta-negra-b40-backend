@@ -8,14 +8,6 @@ server.use(express.json());
 // Endpoints
 server.get('/', (req, res) => res.send('Hello World!'));
 
-server.post('/api/v1/movies', (req, res) => res.status(201).send({ movies: [] }));
-
-server.get('/api/v1/temario/:id', (req, res) => {
-  console.log(req.query);
-  console.log(req.params);
-  res.status(200).send("cool");
-});
-
 const Users = require('../models/Users');
 
 // CRUD Usuario
