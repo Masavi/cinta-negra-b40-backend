@@ -28,7 +28,14 @@ module.exports = {
       .then(updatedUser => res.status(200).send(updatedUser))
       .catch(err => res.status(400).send({ message: "Error updating user", err }));
   },
-  findByIdAndDelete: (req, res) => {
-
+  findByIdAndDelete: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const user = await UsersService.findById(id);
+      await UsersService.update(user, { is_active: false })
+      res.status(204).send(); 
+    } catch (error) {
+      res.status(404).send({ message: "Error deleting user", error });
+    }
   }
 }

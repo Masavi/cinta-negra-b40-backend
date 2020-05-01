@@ -22,6 +22,6 @@ router.get('/users/:id', UsersController.findById);
 router.patch('/users/:id', UsersController.findByIdAndUpdate);
 
 // DELETE
-// router.delete('/users/:id', UsersController.findByIdAndDelete);
+router.delete('/users/:id', UsersController.findByIdAndDelete);
 
 module.exports = router;
