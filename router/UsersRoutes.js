@@ -16,7 +16,7 @@ router.post('/users', UsersController.create);
 router.get('/users', UsersController.find);
 
 // GET (ONE)
-// router.get('/users/:id', UsersController.findById);
+router.get('/users/:id', UsersController.findById);
 
 // UPDATE
 router.patch('/users/:id', UsersController.findByIdAndUpdate);

@@ -11,8 +11,14 @@ module.exports = {
       .then(users => res.status(200).send(users))
       .catch(err => res.status(404).send({ message: 'Users not found', err }));
   },
-  findById: (req, res) => {
-
+  findById: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const user = await UsersService.findById(id); 
+      res.status(200).send(user);
+    } catch (error) {
+      res.status(404).send({ message: "Not found", err })
+    }
   },
   findByIdAndUpdate: (req, res) => {
     const { id } = req.params;
