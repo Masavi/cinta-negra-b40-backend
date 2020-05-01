@@ -12,6 +12,7 @@ router.get('/users', UsersController.find);
 router.get('/users/:id', UsersController.findById);
 
 // UPDATE
+router.patch('/users/:id', UsersController.findByIdAndUpdate);
 
 // DELETE
 
