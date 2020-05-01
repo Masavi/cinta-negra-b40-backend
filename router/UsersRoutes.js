@@ -10,9 +10,9 @@ const UsersController = require('../controller/UsersController');
 // });
 
 // CREATE
-router.post('/api/v1/users', UsersController.create);
+router.post('/users', UsersController.create);
 
 // GET (ALL)
-router.get('/api/v1/users', UsersController.find);
+router.get('/users', UsersController.find);
 
 module.exports = router;
