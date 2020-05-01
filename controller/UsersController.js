@@ -11,4 +11,18 @@ module.exports = {
       .then(users => res.status(200).send(users))
       .catch(err => res.status(404).send({ message: 'Users not found', err }));
   },
+  findById: (req, res) => {
+
+  },
+  findByIdAndUpdate: (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+    UsersService.findById(id)
+      .then(user => UsersService.update(user, body))
+      .then(updatedUser => res.status(200).send(updatedUser))
+      .catch(err => res.status(400).send({ message: "Error updating user", err }));
+  },
+  findByIdAndDelete: (req, res) => {
+
+  }
 }
