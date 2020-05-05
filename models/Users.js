@@ -15,6 +15,7 @@ const usersSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   is_active: {
     type: Boolean,
@@ -45,13 +46,6 @@ usersSchema.pre('save', function(next) {
     });
   });
 });
-
-usersSchema.methods.comparePassword = function(candidatePassword) {
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-      if (err) return false
-      return isMatch;
-  });
-};
 
 const Users = mongoose.model('User', usersSchema);
 
