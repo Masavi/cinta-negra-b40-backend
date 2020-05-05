@@ -47,4 +47,12 @@ module.exports = {
       res.status(404).send({ message: 'Error deleting user', err });
     }
   },
+  signup: async (req, res) => {
+    try {
+      const user = await UsersService.create(req.body);
+      res.status(201).send({ message: "signup succesfull", user });
+    } catch (err) {
+      res.status(400).send({ message: 'Error signin up', err }); 
+    }
+  },
 }
