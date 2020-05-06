@@ -14,7 +14,6 @@ module.exports = {
     return user.save();
   },
   comparePasswords: (candidatePassword, password) => {
-    console.log('🌎', candidatePassword, password);
     return bcrypt.compareSync(candidatePassword, password);
   }
 }
