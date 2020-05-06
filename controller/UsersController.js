@@ -62,6 +62,7 @@ module.exports = {
       if (!user) res.status(404).send({ message: 'User not found' });
       const isMatch = UsersService.comparePasswords(password, user.password);
       if (!isMatch) res.status(400).send({ message: 'Invalid credentials' });
+      // TODO: Devolver JWT 
       res.status(200).send({ message: "step inside, brother" });
     } catch (error) {
       console.log(error);
