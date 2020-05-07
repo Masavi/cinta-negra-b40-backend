@@ -25,7 +25,10 @@ const usersSchema = new Schema({
   password: {
     type: String,
   },
-  roles: [rolesSchema]
+  roles: [rolesSchema],
+  books: [
+    { type: Schema.Types.ObjectId, ref: 'Books' }
+  ]
 });
 
 usersSchema.pre('save', function(next) {
