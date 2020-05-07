@@ -18,10 +18,21 @@ module.exports = {
     const { id }  = req.params;
     try {
       const user = await UsersService.findById(id);
-      res.status(201).send(user.roles);
+      res.status(200).send(user.roles);
     } catch (err) {
       console.log(err);
       res.status(400).send({ message: 'Error getting user roles', err }); 
+    }
+  },
+  findById: async (req, res) => {
+    const { idUser, idRole }  = req.params;
+    try {
+      const user = await UsersService.findById(idUser);
+      const rol = user.roles.id(idRole);
+      res.status(200).send(rol);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send({ message: 'Error getting user role', err }); 
     }
   },
 }
