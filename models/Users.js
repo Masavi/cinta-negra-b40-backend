@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
+const { rolesSchema } = require('./Roles');
 
 const usersSchema = new Schema({
   first_name: {
@@ -23,7 +24,8 @@ const usersSchema = new Schema({
   },
   password: {
     type: String,
-  }
+  },
+  roles: [rolesSchema]
 });
 
 usersSchema.pre('save', function(next) {
