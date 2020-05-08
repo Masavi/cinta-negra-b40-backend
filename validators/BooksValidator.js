@@ -8,5 +8,10 @@ module.exports = {
       isbn: Joi.string(),
     }),
   }),
+  addBookToUser: celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      idBook: Joi.string().required(),
+    }),
+  }),
 };
 

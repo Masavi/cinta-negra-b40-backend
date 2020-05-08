@@ -47,23 +47,26 @@ module.exports = {
       res.status(404).send({ message: 'Error deleting book', err });
     }
   },
-  addBookToUserById: async (req, res) => {
-    const { idUser, idBook }  = req.params;
+  addBookToUser: async (req, res) => {
+    const { id }  = req.params;
+    const { idBook } = req.body;
     try {
-      const user = await UsersService.findById(idUser);
+      const user = await UsersService.findById(id);
       const book = await BooksService.findById(idBook);
-      if (!book) res.status(404).send({ message: 'Book not found', err });
-      const userWithBook = await UsersService.addBook(user, role);
-      res.status(201).send(userWithBook);
+      if (!book) res.status(404).send({ message: 'Book not found' });
+      const userHasBook = await UsersService.findBook(user, book);
+      if (userHasBook) res.status(200).send({ message: 'User has this book already' });
+      const userWithBook = await UsersService.addBook(user, book);
+      res.status(201).send(userWithBook.populate('books'));
     } catch (err) {
       console.log(err);
-      res.status(400).send({ message: 'Error adding role to user', err }); 
+      res.status(400).send({ message: 'Error adding book to user', err }); 
     }
   },
   findUserBooks: async (req, res) => {
     const { id }  = req.params;
     try {
-      const user = await UsersService.findById(id);
+      const user = await UsersService.findById(id).populate('books');
       res.status(200).send(user.books);
     } catch (err) {
       console.log(err);
@@ -74,34 +77,25 @@ module.exports = {
     const { idUser, idBook }  = req.params;
     try {
       const user = await UsersService.findById(idUser);
-      const book = user.books.id(idBook);
-      if (!book.is_active) return res.status(404).send({ message: 'Book not found' });
-      res.status(200).send(book);
+      const book = await BooksService.findById(idBook);
+      if (!book) return res.status(404).send({ message: 'Book not found' });
+      const userBook = await UsersService.findBook(user, book);
+      if (userBook) res.status(200).send({ message: 'User has this book', book: userBook });
+      res.status(404).send({ message: 'Book in User not found' });
     } catch (err) {
       console.log(err);
       res.status(400).send({ message: 'Error getting user book', err }); 
-    }
-  },
-  updateUserBookById: async (req, res) => {
-    const { idUser, idBook }  = req.params;
-    try {
-      const user = await UsersService.findById(idUser);
-      const newBook = user.books.id(idBook);
-      const userWithUpdatedBook = await UsersService.updateBook(user, newBook);
-      res.status(200).send(userWithUpdatedBook);
-    } catch (err) {
-      console.log(err);
-      res.status(400).send({ message: 'Error updating user role', err }); 
     }
   },
   deleteUserBookById: async (req, res) => {
     const { idUser, idBook }  = req.params;
     try {
       const user = await UsersService.findById(idUser);
-      const book = user.books.id(idBook);
-      if (!book.is_active) return res.status(404).send({ message: 'Book not found' });
-      const deletedBook = await BooksService.update(book, { is_active: false });
-      await UsersService.updateBook(user, deletedBook);
+      const book = await BooksService.findById(idBook);
+      if (!book) return res.status(404).send({ message: 'Book not found' });
+      const userHasBook = await UsersService.findBook(user, book);
+      if (!userHasBook) res.status(404).send({ message: 'User is not reading this book' });
+      await UsersService.deleteBook(user, book);
       res.status(204).send();
     } catch (err) {
       console.log(err);

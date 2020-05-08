@@ -33,12 +33,26 @@ module.exports = {
     user.books.push(book._id);
     return user.save();
   },
-  updateBook: (user, newBook) => {
-    const updatedBooks = user.books.filter((id) => {
-      if(id === newBook._id) return newBook._id;
-      return id;
+  findBook: (user, book) => {
+    const idBook = book._id;
+    console.log('✅', user);
+    if (!user.books) return;
+    if (user.books.length === 0) return;
+    try {
+      if (user.books.includes(idBook)) {
+        return book;
+      }
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  },
+  deleteBook: (user, bookToDelete) => {
+    const newUserBooks = user.books.filter((id) => {
+      console.log('🦷', id, bookToDelete._id);
+      if(id.toString() !== bookToDelete._id.toString()) return id;
     });
-    user.books = updatedBooks;
+    user.books = newUserBooks;
     return user.save();
   },
 }
