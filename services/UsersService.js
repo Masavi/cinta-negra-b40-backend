@@ -29,4 +29,16 @@ module.exports = {
     user.roles = updatedRoles;
     return user.save();
   },
+  addBook: (user, book) => {
+    user.books.push(book._id);
+    return user.save();
+  },
+  updateBook: (user, newBook) => {
+    const updatedBooks = user.books.filter((id) => {
+      if(id === newBook._id) return newBook._id;
+      return id;
+    });
+    user.books = updatedBooks;
+    return user.save();
+  },
 }
