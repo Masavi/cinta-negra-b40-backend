@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose --detectOpenHandles ./test --watchAll"
   },
   "author": "",
   "license": "ISC",
@@ -17,5 +17,8 @@
     "express-fileupload": "^1.1.7-alpha.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.10"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1"
   }
 }
