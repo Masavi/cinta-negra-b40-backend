@@ -1,5 +1,6 @@
 const express = require('express');
 const server = express();
+const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const PORT = process.env.PORT || 3000;
 const { errors } = require('celebrate');
@@ -10,6 +11,7 @@ server.use(fileUpload({
   useTempFiles: true,
   tempFileDir : '/tmp/',
 }));
+server.use(cors());
 
 // Endpoints
 server.get('/', (req, res) => res.send('Hello World!'));

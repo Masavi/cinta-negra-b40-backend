@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose --detectOpenHandles ./test --watchAll"
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=staging nodemon index.js",
+    "test": "NODE_ENV=test jest --verbose --detectOpenHandles ./test --watchAll"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +14,7 @@
     "bcrypt": "^4.0.1",
     "celebrate": "^12.1.1",
     "cloudinary": "^1.21.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.3",
